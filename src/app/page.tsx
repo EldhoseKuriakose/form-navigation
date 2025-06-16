@@ -102,7 +102,7 @@ export default function Home() {
       </div>
 
       {/* Navigation Bar */}
-      <div className='bg-white p-5 mt-auto'>
+      <div className='bg-white p-5 mt-auto overflow-x-auto'>
         <div className='flex items-center w-max relative'>
           {pagesData.map((item, index) => (
             <Fragment key={item.id}>
@@ -153,7 +153,7 @@ export default function Home() {
           </button>
 
           {/* Dashed line */}
-          <div className='border border-b-gray-shade-1 border-dashed absolute left-0 right-0 top-[calc(50%-0.5px)]' />
+          <div className='border-b border-b-gray-shade-1 border-dashed absolute left-0 right-0 top-[calc(50%-0.5px)]' />
         </div>
       </div>
 

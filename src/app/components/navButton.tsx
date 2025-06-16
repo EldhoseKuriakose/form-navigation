@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Image, { StaticImageData } from 'next/image';
 import { MoreIcon } from '@/app/assets/images';
 import { settingsMenuData } from '@/app/lib/data';
@@ -50,7 +51,7 @@ export default function NavButton({ title, isActive, onClick, icon, buttonIndex 
           : 'bg-disabled-primary border-disabled-primary text-disabled-text hover:bg-disabled-secondary hover:border-disabled-secondary'
         } 
         flex items-center hover:cursor-pointer font-medium text-[14px] pl-2.5 pr-1 py-1 rounded-lg shadow-custom-shadow-1 border-[0.5px] focus:border-royal-blue-1 
-        focus:shadow-custom-shadow-2 relative z-10 transition-colors duration-100 ease-linear
+        focus:shadow-custom-shadow-2 relative z-10 transition-all duration-200 ease-linear
       `}
       tabIndex={0}
       onClick={onClick}
@@ -72,26 +73,35 @@ export default function NavButton({ title, isActive, onClick, icon, buttonIndex 
           </summary>
 
           {/* Settings menu */}
-          <div className='absolute shadow-custom-shadow-1 z-50 w-[240px] rounded-xl overflow-hidden bottom-10 translate-x-[-30%]'>
-            <div className='bg-gray-shade-3 border-b border-b-gray-shade-2 text-[16px] font-bold text-active-text py-2 px-2.5'>Settings</div>
-            <div className='bg-white py-2 px-3'>
-              {settingsMenuData.map((menu, index) => (
-                <button 
-                  key={menu.id} 
-                  disabled={menu.title === "Set as first page" && buttonIndex === 0}
-                  className={`
-                    flex items-center py-1.5 text-[14px] font-medium w-full hover:cursor-pointer transition-opacity duration-150 
-                    ${index === settingsMenuData.length - 1 ? 'border-t border-gray-shade-2' : ''} 
-                    ${menu.title === 'Delete' ? 'text-red-shade-1' : 'text-active-text'}
-                    ${(menu.title === "Set as first page" && buttonIndex === 0) ? 'opacity-30' : 'hover:opacity-70'}
-                  `}
-                >
-                  <Image src={menu.icon} alt={menu.title} className='w-4 h-4 mr-1' />
-                  {menu.title}
-                </button>
-              ))}
-            </div>
-          </div>
+          {isMenuOpen && typeof window !== undefined && createPortal(
+            <div 
+              className='absolute shadow-custom-shadow-1 z-50 w-[240px] rounded-xl overflow-hidden bottom-15 translate-x-[-30%]'
+              style={{
+                // Adjusting the menu to display above corresponding button
+                left: (menuRef.current?.getBoundingClientRect()?.left ?? 0)
+              }}
+            >
+              <div className='bg-gray-shade-3 border-b border-b-gray-shade-2 text-[16px] font-bold text-active-text py-2 px-2.5'>Settings</div>
+              <div className='bg-white py-2 px-3'>
+                {settingsMenuData.map((menu, index) => (
+                  <button 
+                    key={menu.id} 
+                    disabled={menu.title === "Set as first page" && buttonIndex === 0}
+                    className={`
+                      flex items-center py-1.5 text-[14px] font-medium w-full hover:cursor-pointer transition-opacity duration-150 
+                      ${index === settingsMenuData.length - 1 ? 'border-t border-gray-shade-2' : ''} 
+                      ${menu.title === 'Delete' ? 'text-red-shade-1' : 'text-active-text'}
+                      ${(menu.title === "Set as first page" && buttonIndex === 0) ? 'opacity-30' : 'hover:opacity-70'}
+                    `}
+                  >
+                    <Image src={menu.icon} alt={menu.title} className='w-4 h-4 mr-1' />
+                    {menu.title}
+                  </button>
+                ))}
+              </div>
+            </div>,
+            document.body
+          )}
         </details>
       )}
     </div>

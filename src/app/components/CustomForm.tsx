@@ -5,11 +5,14 @@ type CustomFormProps = {
 
 export default function CustomForm({ title, handleNext }: CustomFormProps) {
   return (
-    <form className='flex flex-col'>
+    <form action="" className='flex flex-col'>
       <p className='text-white text-[24px] font-bold'>{title}</p>
-      <label className='text-[20px] text-white font-medium'>What&apos;s your name?<sup>*</sup></label>
+      <label htmlFor='name' className='text-[20px] text-white font-medium'>What&apos;s your name?<sup>*</sup></label>
       <input 
+        name='name'
+        id='name'
         className='text-[18px] text-white font-medium border border-blue-shade-2 bg-blue-shade-1 outline-0 px-2 min-w-[30vw] rounded-sm mt-2 py-1' 
+        autoComplete='name'
       />
 
       {/* Next button */}
