@@ -50,7 +50,7 @@ export default function NavButton({ title, isActive, onClick, icon, buttonIndex 
           : 'bg-disabled-primary border-disabled-primary text-disabled-text hover:bg-disabled-secondary hover:border-disabled-secondary'
         } 
         flex items-center hover:cursor-pointer font-medium text-[14px] pl-2.5 pr-1 py-1 rounded-lg shadow-custom-shadow-1 border-[0.5px] focus:border-royal-blue-1 
-        focus:shadow-custom-shadow-2 relative z-10 transition-colors duration-150 ease-linear
+        focus:shadow-custom-shadow-2 relative z-10 transition-colors duration-100 ease-linear
       `}
       tabIndex={0}
       onClick={onClick}
