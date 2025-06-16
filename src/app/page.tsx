@@ -93,10 +93,11 @@ export default function Home() {
     <div className='w-full h-[100vh] flex flex-col justify-content-between'>
       
       <div className='m-auto'>
-        {/* Sample form for demo */}
+        {/* Sample form for demo, not retaining any form input values in state since this is a demo form */}
         <CustomForm 
           title={activePage.title} 
           handleNext={navigateToNextForm}
+          key={activePage.id}
         />
       </div>
 
